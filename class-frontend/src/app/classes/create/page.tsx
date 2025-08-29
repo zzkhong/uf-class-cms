@@ -1,10 +1,11 @@
 "use client";
 
-import type { FormProps } from "antd";
-import { Button, Form, Input, Card, Flex } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import AppLayout from "@/components/AppLayout";
+import type { FormProps } from "antd";
+import { Button, Card, Flex, Form, Input } from "antd";
 import { useRouter } from "next/navigation";
+
+import AppLayout from "@/components/AppLayout";
 
 type FieldType = {
   level: string;
@@ -20,7 +21,7 @@ export default function CreateClassPage() {
   };
 
   const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
-    errorInfo
+    errorInfo,
   ) => {
     console.log("Failed:", errorInfo);
   };

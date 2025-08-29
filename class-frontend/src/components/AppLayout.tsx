@@ -1,10 +1,10 @@
 "use client";
 
-import { useMemo, useCallback } from "react";
-import { MenuProps, Layout, Flex, Menu, ConfigProvider } from "antd";
-import { usePathname, useRouter } from "next/navigation";
 import { StyleProvider } from "@ant-design/cssinjs";
+import { ConfigProvider, Flex, Layout, Menu, MenuProps } from "antd";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
+import { useCallback, useMemo } from "react";
 
 const { Header, Content } = Layout;
 
@@ -29,14 +29,14 @@ export default function AppLayout({ children }: AppLayoutProps) {
         label: "Teachers",
       },
     ],
-    []
+    [],
   );
 
   const handleMenuClick = useCallback(
     (e: { key: string }) => {
       router.push(`/${e.key}`);
     },
-    [router]
+    [router],
   );
 
   const getSelectedKey = () => {

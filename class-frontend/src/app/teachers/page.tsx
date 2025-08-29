@@ -1,9 +1,10 @@
 "use client";
 
-import { useCallback } from "react";
-import { Button, Card, Flex, Table } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { Button, Card, Flex, Table } from "antd";
 import { useRouter } from "next/navigation";
+import { useCallback } from "react";
+
 import AppLayout from "@/components/AppLayout";
 
 export default function TeachersPage() {
