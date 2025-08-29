@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { StyleProvider } from "@ant-design/cssinjs";
-import { ConfigProvider, Flex, Layout, Menu, MenuProps } from "antd";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useMemo } from "react";
+import { StyleProvider } from '@ant-design/cssinjs';
+import { ConfigProvider, Flex, Layout, Menu, MenuProps } from 'antd';
+import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import { useCallback, useMemo } from 'react';
 
 const { Header, Content } = Layout;
 
@@ -12,7 +12,7 @@ interface AppLayoutProps {
   children: React.ReactNode;
 }
 
-type MenuItem = Required<MenuProps>["items"][number];
+type MenuItem = Required<MenuProps>['items'][number];
 
 export default function AppLayout({ children }: AppLayoutProps) {
   const router = useRouter();
@@ -21,12 +21,12 @@ export default function AppLayout({ children }: AppLayoutProps) {
   const navItems: MenuItem[] = useMemo(
     () => [
       {
-        key: "classes",
-        label: "Classes",
+        key: 'classes',
+        label: 'Classes',
       },
       {
-        key: "teachers",
-        label: "Teachers",
+        key: 'teachers',
+        label: 'Teachers',
       },
     ],
     [],
@@ -40,8 +40,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
   );
 
   const getSelectedKey = () => {
-    const segments = pathname.split("/").filter(Boolean);
-    return segments[0] || "classes";
+    const segments = pathname.split('/').filter(Boolean);
+    return segments[0] || 'classes';
   };
 
   return (
@@ -49,10 +49,10 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <ConfigProvider
         theme={{
           token: {
-            fontFamily: "Inter",
-            colorPrimary: "#135BB4",
-            colorBgBase: "#f7f7f7",
-            colorTextBase: "#333333",
+            fontFamily: 'Inter',
+            colorPrimary: '#135BB4',
+            colorBgBase: '#f7f7f7',
+            colorTextBase: '#333333',
           },
         }}
       >

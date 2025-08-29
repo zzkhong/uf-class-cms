@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { ArrowLeftOutlined } from "@ant-design/icons";
-import type { FormProps } from "antd";
-import { Button, Card, Flex, Form, Input } from "antd";
-import { useRouter } from "next/navigation";
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import type { FormProps } from 'antd';
+import { Button, Card, Flex, Form, Input } from 'antd';
+import { useRouter } from 'next/navigation';
 
-import AppLayout from "@/components/AppLayout";
+import AppLayout from '@/components/AppLayout';
 
 type FieldType = {
   name: string;
@@ -17,14 +17,14 @@ type FieldType = {
 export default function CreateTeacherPage() {
   const router = useRouter();
 
-  const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-    console.log("Success:", values);
+  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
+    console.log('Success:', values);
   };
 
-  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
+  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (
     errorInfo,
   ) => {
-    console.log("Failed:", errorInfo);
+    console.log('Failed:', errorInfo);
   };
 
   return (
@@ -46,7 +46,7 @@ export default function CreateTeacherPage() {
               name="name"
               layout="vertical"
               rules={[
-                { required: true, message: "Please input your username!" },
+                { required: true, message: 'Please input your username!' },
               ]}
             >
               <Input />
@@ -57,7 +57,7 @@ export default function CreateTeacherPage() {
               name="subject"
               layout="vertical"
               rules={[
-                { required: true, message: "Please input your username!" },
+                { required: true, message: 'Please input your username!' },
               ]}
             >
               <Input />
@@ -68,7 +68,7 @@ export default function CreateTeacherPage() {
               name="email"
               layout="vertical"
               rules={[
-                { required: true, message: "Please input your username!" },
+                { required: true, message: 'Please input your username!' },
               ]}
             >
               <Input />
@@ -79,7 +79,7 @@ export default function CreateTeacherPage() {
               name="contactNumber"
               layout="vertical"
               rules={[
-                { required: true, message: "Please input your username!" },
+                { required: true, message: 'Please input your username!' },
               ]}
             >
               <Input />

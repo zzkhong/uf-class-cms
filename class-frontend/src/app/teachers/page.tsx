@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { PlusOutlined } from "@ant-design/icons";
-import { Button, Card, Flex, Table } from "antd";
-import { useRouter } from "next/navigation";
-import { useCallback } from "react";
+import { PlusOutlined } from '@ant-design/icons';
+import { Button, Card, Flex, Table } from 'antd';
+import { useRouter } from 'next/navigation';
+import { useCallback } from 'react';
 
-import AppLayout from "@/components/AppLayout";
+import AppLayout from '@/components/AppLayout';
 
 export default function TeachersPage() {
   const router = useRouter();
 
   const handleAddTeacher = useCallback(() => {
-    router.push("/teachers/create");
+    router.push('/teachers/create');
   }, [router]);
 
   return (
@@ -33,33 +33,33 @@ export default function TeachersPage() {
         <Table
           dataSource={[
             {
-              key: "1",
-              name: "Mike",
+              key: '1',
+              name: 'Mike',
               age: 32,
-              address: "10 Downing Street",
+              address: '10 Downing Street',
             },
             {
-              key: "2",
-              name: "John",
+              key: '2',
+              name: 'John',
               age: 42,
-              address: "10 Downing Street",
+              address: '10 Downing Street',
             },
           ]}
           columns={[
             {
-              title: "Name",
-              dataIndex: "name",
-              key: "name",
+              title: 'Name',
+              dataIndex: 'name',
+              key: 'name',
             },
             {
-              title: "Age",
-              dataIndex: "age",
-              key: "age",
+              title: 'Age',
+              dataIndex: 'age',
+              key: 'age',
             },
             {
-              title: "Address",
-              dataIndex: "address",
-              key: "address",
+              title: 'Address',
+              dataIndex: 'address',
+              key: 'address',
             },
           ]}
         />

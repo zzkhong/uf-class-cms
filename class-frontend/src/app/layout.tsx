@@ -1,15 +1,15 @@
-import { AntdRegistry } from "@ant-design/nextjs-registry";
-import "@ant-design/v5-patch-for-react-19";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import '@ant-design/v5-patch-for-react-19';
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
-import "./globals.css";
+import './globals.css';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "School Portal",
-  description: "UF School Portal",
+  title: 'School Portal',
+  description: 'UF School Portal',
 };
 
 export default function RootLayout({
