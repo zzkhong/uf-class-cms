@@ -7,8 +7,8 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "UF Class",
-  description: "UF Class CMS",
+  title: "School Portal",
+  description: "UF School Portal",
 };
 
 export default function RootLayout({

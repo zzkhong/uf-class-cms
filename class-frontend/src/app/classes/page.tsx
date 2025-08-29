@@ -8,7 +8,7 @@ export default function ClassesPage() {
   return (
     <AppLayout>
       <Flex justify="space-between" align="center" className="mb-4">
-        <h1 className="font-bold">Classes</h1>
+        <h2 className="font-extrabold text-2xl">Classes</h2>
 
         <Button type="primary" icon={<PlusOutlined />} size="large">
           Add Class

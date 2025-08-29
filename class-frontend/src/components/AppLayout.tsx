@@ -4,6 +4,7 @@ import { useMemo, useCallback } from "react";
 import { MenuProps, Layout, Flex, Menu, ConfigProvider } from "antd";
 import { usePathname, useRouter } from "next/navigation";
 import { StyleProvider } from "@ant-design/cssinjs";
+import Image from "next/image";
 
 const { Header, Content } = Layout;
 
@@ -49,6 +50,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <ConfigProvider
         theme={{
           token: {
+            fontFamily: "Inter",
             colorPrimary: "#135BB4",
             colorBgBase: "#f7f7f7",
             colorTextBase: "#333333",
@@ -57,8 +59,14 @@ export default function AppLayout({ children }: AppLayoutProps) {
       >
         <Flex gap="middle" wrap>
           <Layout className="min-h-screen">
-            <Header className="bg-white flex items-center border-b border-gray-200">
-              <h1 className="font-bold mr-16">Logo</h1>
+            <Header className="bg-white flex items-center border-b border-gray-100">
+              <Image
+                className="mr-12"
+                src="/logo.png"
+                alt="School Portal Logo"
+                width={150}
+                height={40}
+              />
 
               <Menu
                 rootClassName="bg-white"

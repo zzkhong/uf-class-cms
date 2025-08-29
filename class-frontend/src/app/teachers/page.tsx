@@ -8,7 +8,7 @@ export default function TeachersPage() {
   return (
     <AppLayout>
       <Flex justify="space-between" align="center" className="mb-4">
-        <h1 className="font-bold">Teachers</h1>
+        <h2 className="font-extrabold text-2xl">Teachers</h2>
 
         <Button type="primary" icon={<PlusOutlined />} size="large">
           Add Teacher
