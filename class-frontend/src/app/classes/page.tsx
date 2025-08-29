@@ -1,16 +1,29 @@
 "use client";
 
+import { useCallback } from "react";
 import { Button, Card, Flex, Table } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import AppLayout from "@/components/AppLayout";
+import { useRouter } from "next/navigation";
 
 export default function ClassesPage() {
+  const router = useRouter();
+
+  const handleAddClass = useCallback(() => {
+    router.push("/classes/create");
+  }, [router]);
+
   return (
     <AppLayout>
       <Flex justify="space-between" align="center" className="mb-4">
         <h2 className="font-extrabold text-2xl">Classes</h2>
 
-        <Button type="primary" icon={<PlusOutlined />} size="large">
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          size="large"
+          onClick={handleAddClass}
+        >
           Add Class
         </Button>
       </Flex>

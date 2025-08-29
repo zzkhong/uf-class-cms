@@ -40,9 +40,8 @@ export default function AppLayout({ children }: AppLayoutProps) {
   );
 
   const getSelectedKey = () => {
-    if (pathname === "/classes") return "classes";
-    if (pathname === "/teachers") return "teachers";
-    return "classes";
+    const segments = pathname.split("/").filter(Boolean);
+    return segments[0] || "classes";
   };
 
   return (

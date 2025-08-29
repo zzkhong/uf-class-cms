@@ -1,16 +1,29 @@
 "use client";
 
+import { useCallback } from "react";
 import { Button, Card, Flex, Table } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 import AppLayout from "@/components/AppLayout";
 
 export default function TeachersPage() {
+  const router = useRouter();
+
+  const handleAddTeacher = useCallback(() => {
+    router.push("/teachers/create");
+  }, [router]);
+
   return (
     <AppLayout>
       <Flex justify="space-between" align="center" className="mb-4">
         <h2 className="font-extrabold text-2xl">Teachers</h2>
 
-        <Button type="primary" icon={<PlusOutlined />} size="large">
+        <Button
+          type="primary"
+          icon={<PlusOutlined />}
+          size="large"
+          onClick={handleAddTeacher}
+        >
           Add Teacher
         </Button>
       </Flex>
