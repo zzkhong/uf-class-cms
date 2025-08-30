@@ -1,6 +1,8 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 
-import { sequelize } from '../config/database';
+import { sequelize } from '@/database/config/database';
+
+import { Teacher } from './teacher.model';
 
 interface ClassAttributes {
   id: number;
@@ -11,7 +13,7 @@ interface ClassAttributes {
 
 interface ClassCreationAttributes extends Optional<ClassAttributes, 'id'> {}
 
-export class ClassModel
+export class Class
   extends Model<ClassAttributes, ClassCreationAttributes>
   implements ClassAttributes
 {
@@ -21,7 +23,7 @@ export class ClassModel
   public teacherId!: number;
 }
 
-ClassModel.init(
+Class.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -51,3 +53,14 @@ ClassModel.init(
     timestamps: true,
   },
 );
+
+Class.belongsTo(Teacher, {
+  as: 'teacher',
+  foreignKey: {
+    name: 'teacherId',
+    allowNull: false,
+  },
+  foreignKeyConstraint: true,
+});
+
+export default Class;

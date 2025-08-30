@@ -1,6 +1,6 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 
-import { sequelize } from '../config/database';
+import { sequelize } from '@/database/config/database';
 
 interface TeacherAttributes {
   id: number;
@@ -12,7 +12,7 @@ interface TeacherAttributes {
 
 interface TeacherCreationAttributes extends Optional<TeacherAttributes, 'id'> {}
 
-export class TeacherModel
+export class Teacher
   extends Model<TeacherAttributes, TeacherCreationAttributes>
   implements TeacherAttributes
 {
@@ -23,7 +23,7 @@ export class TeacherModel
   public contactNumber!: string;
 }
 
-TeacherModel.init(
+Teacher.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -31,7 +31,7 @@ TeacherModel.init(
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     subject: {
@@ -39,12 +39,12 @@ TeacherModel.init(
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.STRING,
       unique: true,
       allowNull: false,
     },
     contactNumber: {
-      type: DataTypes.STRING(16),
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
@@ -55,3 +55,5 @@ TeacherModel.init(
     indexes: [{ unique: true, fields: ['email'] }],
   },
 );
+
+export default Teacher;

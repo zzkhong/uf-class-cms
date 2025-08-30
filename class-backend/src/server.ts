@@ -1,7 +1,8 @@
 import http from 'http';
 
+import { sequelize } from '@/database/config/database';
+
 import app from './app';
-import { sequelize } from './config/database';
 
 const PORT = process.env.PORT || 5000;
 
