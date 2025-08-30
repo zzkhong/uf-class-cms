@@ -1,0 +1,27 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+.env
+.env.*
+!.env.example
+.DS_Store
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# Build artifacts
+dist/
+build/
+
+# IDE and OS specific files
+.idea/
+.project
+.classpath
+.settings/
+Thumbs.db
+
+# Test coverage
+/coverage
