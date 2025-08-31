@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx --watch --env-file .env src/server.ts",
+    "dev": "tsx --watch src/server.ts",
     "db:up": "docker-compose up -d",
     "db:create": "sequelize db:create",
     "db:migrate": "sequelize db:migrate",
@@ -17,6 +17,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "pg": "^8.16.3",
     "pg-hstore": "^2.3.4",

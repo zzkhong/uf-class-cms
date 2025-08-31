@@ -1,9 +1,9 @@
 import { Sequelize } from 'sequelize';
 
-import * as dbConfig from './sequelize.config';
+const dbConfig = require('./sequelize.config.js');
 
 const env = process.env.NODE_ENV || 'development';
-const config = (dbConfig as any)[env];
+const config = dbConfig[env];
 
 export const sequelize = new Sequelize({
   ...config,
