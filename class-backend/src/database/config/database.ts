@@ -7,5 +7,6 @@ const config = dbConfig[env];
 
 export const sequelize = new Sequelize({
   ...config,
+  dialect: 'postgres',
   logging: env === 'development' ? console.log : false,
 });
