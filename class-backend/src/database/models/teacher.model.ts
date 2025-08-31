@@ -31,11 +31,11 @@ Teacher.init(
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(64),
     },
     subject: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(128),
     },
     email: {
       allowNull: false,
@@ -44,7 +44,7 @@ Teacher.init(
     },
     contactNumber: {
       allowNull: false,
-      type: DataTypes.STRING(64),
+      type: DataTypes.STRING(32),
     },
   },
   {

@@ -12,11 +12,11 @@ module.exports = {
       },
       name: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(64),
       },
       subject: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(128),
       },
       email: {
         allowNull: false,
@@ -25,7 +25,7 @@ module.exports = {
       },
       contactNumber: {
         allowNull: false,
-        type: Sequelize.STRING(64),
+        type: Sequelize.STRING(32),
       },
       createdAt: {
         allowNull: false,

@@ -12,11 +12,11 @@ module.exports = {
       },
       name: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(64),
       },
       level: {
         allowNull: false,
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(128),
       },
       teacherId: {
         allowNull: false,

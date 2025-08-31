@@ -31,11 +31,11 @@ Class.init(
     },
     name: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(64),
     },
     level: {
       allowNull: false,
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(128),
     },
     teacherId: {
       allowNull: false,
