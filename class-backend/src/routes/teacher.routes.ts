@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import { TeacherController } from '@/controllers/teacher.controller';
-import { validate } from '@/middlewares/validate';
+import { validate } from '@/middlewares/validate.middleware';
 import { createTeacherSchema } from '@/validator/teacher.validator';
 
 const router = Router();

@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 
+import { errorHandler } from '@/middlewares/error.middleware';
 import classRoutes from '@/routes/class.routes';
 import teacherRoutes from '@/routes/teacher.routes';
 
@@ -22,10 +23,6 @@ app.use((req, res) => {
   res.status(404).json({ error: 'Path not found' });
 });
 
-// Generic error
-app.use((err: any, req: Request, res: Response) => {
-  console.error('Unexpected error:', err);
-  res.status(500).json({ error: 'Internal server error' });
-});
+app.use(errorHandler);
 
 export default app;
