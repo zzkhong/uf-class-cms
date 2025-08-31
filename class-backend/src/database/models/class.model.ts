@@ -1,26 +1,24 @@
-import { DataTypes, Model, Optional } from 'sequelize';
+import {
+  CreationOptional,
+  DataTypes,
+  ForeignKey,
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+} from 'sequelize';
 
 import { sequelize } from '@/database/config/database';
 
 import { Teacher } from './teacher.model';
 
-interface ClassAttributes {
-  id: number;
-  name: string;
-  level: string;
-  teacherId: number;
-}
-
-interface ClassCreationAttributes extends Optional<ClassAttributes, 'id'> {}
-
-export class Class
-  extends Model<ClassAttributes, ClassCreationAttributes>
-  implements ClassAttributes
-{
-  public id!: number;
+export class Class extends Model<
+  InferAttributes<Class>,
+  InferCreationAttributes<Class>
+> {
+  public id!: CreationOptional<number>;
   public name!: string;
   public level!: string;
-  public teacherId!: number;
+  public teacherId!: ForeignKey<Teacher['id']>;
 }
 
 Class.init(
@@ -31,7 +29,7 @@ Class.init(
       primaryKey: true,
     },
     name: {
-      type: DataTypes.STRING(64),
+      type: DataTypes.STRING,
       allowNull: false,
     },
     level: {
@@ -54,13 +52,6 @@ Class.init(
   },
 );
 
-Class.belongsTo(Teacher, {
-  as: 'teacher',
-  foreignKey: {
-    name: 'teacherId',
-    allowNull: false,
-  },
-  foreignKeyConstraint: true,
-});
+Class.belongsTo(Teacher, { foreignKey: 'teacherId' });
 
 export default Class;

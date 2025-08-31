@@ -1,22 +1,18 @@
-import { DataTypes, Model, Optional } from 'sequelize';
+import {
+  CreationOptional,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+} from 'sequelize';
 
 import { sequelize } from '@/database/config/database';
 
-interface TeacherAttributes {
-  id: number;
-  name: string;
-  subject: string;
-  email: string;
-  contactNumber: string;
-}
-
-interface TeacherCreationAttributes extends Optional<TeacherAttributes, 'id'> {}
-
-export class Teacher
-  extends Model<TeacherAttributes, TeacherCreationAttributes>
-  implements TeacherAttributes
-{
-  public id!: number;
+export class Teacher extends Model<
+  InferAttributes<Teacher>,
+  InferCreationAttributes<Teacher>
+> {
+  public id!: CreationOptional<number>;
   public name!: string;
   public subject!: string;
   public email!: string;
