@@ -14,7 +14,7 @@ export class TeacherController {
 
   static async createTeacher(req: Request, res: Response, next: NextFunction) {
     try {
-      const newTeacher = await TeacherService.createTeacher();
+      const newTeacher = await TeacherService.createTeacher(req.body);
       res.status(201).json(newTeacher);
     } catch (err) {
       next(err);
