@@ -1,9 +1,16 @@
 import express, { Request, Response } from 'express';
 
+import classRoutes from '@/routes/class.routes';
+import teacherRoutes from '@/routes/teacher.routes';
+
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Mount routes
+app.use('/api/teachers', teacherRoutes);
+app.use('/api/classes', classRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
