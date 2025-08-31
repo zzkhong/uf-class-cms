@@ -12,11 +12,11 @@ export class Teacher extends Model<
   InferAttributes<Teacher>,
   InferCreationAttributes<Teacher>
 > {
-  public id!: CreationOptional<number>;
-  public name!: string;
-  public subject!: string;
-  public email!: string;
-  public contactNumber!: string;
+  declare id: CreationOptional<number>;
+  declare name: string;
+  declare subject: string;
+  declare email: string;
+  declare contactNumber: string;
 }
 
 Teacher.init(

@@ -15,10 +15,10 @@ export class Class extends Model<
   InferAttributes<Class>,
   InferCreationAttributes<Class>
 > {
-  public id!: CreationOptional<number>;
-  public name!: string;
-  public level!: string;
-  public teacherId!: ForeignKey<Teacher['id']>;
+  declare id: CreationOptional<number>;
+  declare name: string;
+  declare level: string;
+  declare teacherId: ForeignKey<Teacher['id']>;
 }
 
 Class.init(
