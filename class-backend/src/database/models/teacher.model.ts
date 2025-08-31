@@ -8,6 +8,8 @@ import {
 
 import { sequelize } from '@/database/config/database';
 
+import { Class } from './class.model';
+
 export class Teacher extends Model<
   InferAttributes<Teacher>,
   InferCreationAttributes<Teacher>
@@ -22,26 +24,27 @@ export class Teacher extends Model<
 Teacher.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
+      type: DataTypes.INTEGER,
     },
     name: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING,
     },
     subject: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING,
     },
     email: {
-      type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
+      unique: true,
+      type: DataTypes.STRING(64),
     },
     contactNumber: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING(64),
     },
   },
   {
@@ -51,5 +54,3 @@ Teacher.init(
     indexes: [{ unique: true, fields: ['email'] }],
   },
 );
-
-export default Teacher;

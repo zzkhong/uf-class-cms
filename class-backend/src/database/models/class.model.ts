@@ -24,25 +24,25 @@ export class Class extends Model<
 Class.init(
   {
     id: {
-      type: DataTypes.INTEGER,
+      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
+      type: DataTypes.INTEGER,
     },
     name: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING,
     },
     level: {
-      type: DataTypes.STRING,
       allowNull: false,
+      type: DataTypes.STRING,
     },
     teacherId: {
-      type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'teachers',
-        key: 'id',
-      },
+      type: DataTypes.INTEGER,
+      references: { model: 'teachers', key: 'id' },
+      onUpdate: 'CASCADE',
+      onDelete: 'RESTRICT',
     },
   },
   {
@@ -51,7 +51,3 @@ Class.init(
     timestamps: true,
   },
 );
-
-Class.belongsTo(Teacher, { foreignKey: 'teacherId' });
-
-export default Class;

@@ -11,13 +11,19 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       level: {
+        allowNull: false,
         type: Sequelize.STRING,
       },
       teacherId: {
+        allowNull: false,
         type: Sequelize.INTEGER,
+        references: { model: 'teachers', key: 'id' },
+        onUpdate: 'CASCADE',
+        onDelete: 'RESTRICT',
       },
       createdAt: {
         allowNull: false,

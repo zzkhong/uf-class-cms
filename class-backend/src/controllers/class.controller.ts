@@ -14,7 +14,7 @@ export class ClassController {
 
   static async createClass(req: Request, res: Response, next: NextFunction) {
     try {
-      const newClass = await ClassService.createClass();
+      const newClass = await ClassService.createClass(req.body);
       res.status(201).json(newClass);
     } catch (err) {
       next(err);

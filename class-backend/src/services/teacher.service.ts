@@ -1,4 +1,4 @@
-import Teacher from '@/database/models/teacher.model';
+import { Teacher } from '@/database/models';
 import { CreateTeacherDTO } from '@/validator/teacher.validator';
 
 export class TeacherService {
@@ -7,6 +7,7 @@ export class TeacherService {
   }
 
   static async createTeacher(data: CreateTeacherDTO) {
-    return Teacher.create(data);
+    const newTeacher = await Teacher.create(data);
+    return { id: newTeacher.id };
   }
 }
