@@ -6,7 +6,14 @@ export class TeacherController {
   static async getTeachers(req: Request, res: Response, next: NextFunction) {
     try {
       const teachers = await TeacherService.getAllTeachers();
-      res.json(teachers);
+      res.json({
+        data: teachers.map((teacher) => ({
+          name: teacher.name,
+          subject: teacher.subject,
+          email: teacher.email,
+          contactNumber: teacher.contactNumber,
+        })),
+      });
     } catch (err) {
       next(err);
     }
@@ -14,8 +21,8 @@ export class TeacherController {
 
   static async createTeacher(req: Request, res: Response, next: NextFunction) {
     try {
-      const newTeacher = await TeacherService.createTeacher(req.body);
-      res.status(201).json(newTeacher);
+      await TeacherService.createTeacher(req.body);
+      res.status(201).json();
     } catch (err) {
       next(err);
     }

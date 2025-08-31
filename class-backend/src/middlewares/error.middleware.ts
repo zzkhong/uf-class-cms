@@ -1,6 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { ValidationError } from 'sequelize';
 
+import { AppError } from '@/utils/error-handler';
+
 export const errorHandler = (
   err: any,
   req: Request,
@@ -16,6 +18,10 @@ export const errorHandler = (
 
   if (err.name === 'SequelizeUniqueConstraintError') {
     return res.status(400).json({ error: 'Duplicate entry not allowed' });
+  }
+
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({ error: err.message });
   }
 
   return res.status(500).json({ error: 'Internal Server Error' });

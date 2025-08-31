@@ -1,19 +1,24 @@
 import { Class, Teacher } from '@/database/models';
 import { CreateClassDTO } from '@/validator/class.validator';
 
+import { TeacherService } from './teacher.service';
+
 export class ClassService {
   static async getAllClasses() {
-    return Class.findAll();
+    const classesPromise = Class.findAll({
+      include: [
+        {
+          model: Teacher,
+          attributes: ['name'],
+        },
+      ],
+    });
+
+    return (await classesPromise) as (Class & { Teacher: Teacher })[];
   }
 
   static async createClass(data: CreateClassDTO) {
-    const teacher = await Teacher.findOne({
-      where: { email: data.teacherEmail },
-    });
-
-    if (!teacher) {
-      throw new Error(`Teacher with email ${data.teacherEmail} not found!`);
-    }
+    const teacher = await TeacherService.findTeacherByEmail(data.teacherEmail);
 
     const newClass = await Class.create({
       name: data.name,
@@ -21,6 +26,6 @@ export class ClassService {
       teacherId: teacher.id,
     });
 
-    return { id: newClass.id };
+    return newClass;
   }
 }
