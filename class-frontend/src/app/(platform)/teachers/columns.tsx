@@ -2,11 +2,15 @@
 
 import { ColumnsType } from 'antd/es/table';
 
-export const columns: any[] = [
+import { ITeacher } from '@/interfaces/teacher.interface';
+import { formatContact } from '@/utils/format';
+
+export const columns: ColumnsType<ITeacher> = [
   {
     title: '#',
-    dataIndex: '',
-    key: '',
+    dataIndex: 'index',
+    key: 'index',
+    render: (val, record, i) => i + 1,
   },
   {
     title: 'Name',
@@ -27,6 +31,7 @@ export const columns: any[] = [
     title: 'Work Contact',
     dataIndex: 'contactNumber',
     key: 'contactNumber',
+    render: (val) => formatContact(val),
   },
 ];
 

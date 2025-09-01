@@ -4,11 +4,12 @@ import { ColumnsType } from 'antd/es/table';
 
 import { IClass } from '@/interfaces/class.interface';
 
-export const columns: any[] = [
+export const columns: ColumnsType<IClass> = [
   {
     title: '#',
-    dataIndex: '',
-    key: '',
+    dataIndex: 'index',
+    key: 'index',
+    render: (val, record, i) => i + 1,
   },
   {
     title: 'Class Level',
@@ -22,8 +23,8 @@ export const columns: any[] = [
   },
   {
     title: 'Form Teacher',
-    dataIndex: 'formTeacher',
-    key: 'teacherName',
+    dataIndex: ['formTeacher', 'name'],
+    key: 'formTeacherName',
   },
 ];
 
