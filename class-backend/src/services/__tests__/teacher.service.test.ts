@@ -1,102 +1,105 @@
-import express, { NextFunction, Request, Response } from 'express';
-import request from 'supertest';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { TeacherController } from '@/controllers/teacher.controller';
-import { TeacherService } from '@/services/teacher.service';
+import { Teacher } from '@/database/models';
+import { AppError } from '@/utils/error-handler';
+import { CreateTeacherDTO } from '@/validator/teacher.validator';
 
-// Mock the service
-vi.mock('@/services/teacher.service');
+import { TeacherService } from '../teacher.service';
 
-const mockedTeachers = [
-  {
-    name: 'Alice',
-    subject: 'Math',
-    email: 'alice@example.com',
-    contactNumber: '12345678',
+// Mock the Teacher model
+vi.mock('@/database/models', () => ({
+  Teacher: {
+    findAll: vi.fn(),
+    create: vi.fn(),
+    findOne: vi.fn(),
   },
-  {
-    name: 'Bob',
-    subject: 'English',
-    email: 'bob@example.com',
-    contactNumber: '87654321',
-  },
-];
+}));
 
-describe('TeacherController', () => {
-  let app: express.Express;
-
+describe('TeacherService', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+  });
 
-    app = express();
-    app.use(express.json());
+  describe('getAllTeachers', () => {
+    it('should return all teachers from database', async () => {
+      const mockTeachers = [
+        {
+          id: 1,
+          name: 'Alice',
+          subject: 'Math',
+          email: 'alice@example.com',
+          contactNumber: '12345678',
+        },
+        {
+          id: 2,
+          name: 'Bob',
+          subject: 'English',
+          email: 'bob@example.com',
+          contactNumber: '87654321',
+        },
+      ];
 
-    app.get('/teachers', TeacherController.getTeachers);
-    app.post('/teachers', TeacherController.createTeacher);
+      (Teacher.findAll as any).mockResolvedValue(mockTeachers);
 
-    // Simple error handler for testing
-    app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-      res
-        .status(err.status || 500)
-        .json({ error: err.message || 'Internal Server Error' });
+      const result = await TeacherService.getAllTeachers();
+
+      expect(Teacher.findAll).toHaveBeenCalledOnce();
+      expect(result).toEqual(mockTeachers);
     });
   });
 
-  it('GET /teachers returns list of teachers', async () => {
-    (TeacherService.getAllTeachers as any).mockResolvedValue(mockedTeachers);
+  describe('createTeacher', () => {
+    it('should create a new teacher with valid data', async () => {
+      const teacherData: CreateTeacherDTO = {
+        name: 'John Doe',
+        subject: 'Physics',
+        email: 'john@example.com',
+        contactNumber: '12345678',
+      };
 
-    const res = await request(app).get('/teachers');
+      const mockCreatedTeacher = { id: 1, ...teacherData };
+      (Teacher.create as any).mockResolvedValue(mockCreatedTeacher);
 
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual({
-      data: mockedTeachers.map((t) => ({
-        name: t.name,
-        subject: t.subject,
-        email: t.email,
-        contactNumber: t.contactNumber,
-      })),
+      const result = await TeacherService.createTeacher(teacherData);
+
+      expect(Teacher.create).toHaveBeenCalledWith(teacherData);
+      expect(result).toEqual(mockCreatedTeacher);
     });
   });
 
-  it('GET /teachers returns error when service throws', async () => {
-    (TeacherService.getAllTeachers as any).mockRejectedValue(
-      new Error('Database unavailable'),
-    );
+  describe('findTeacherByEmail', () => {
+    it('should return teacher when found', async () => {
+      const mockTeacher = {
+        id: 1,
+        name: 'Alice',
+        subject: 'Math',
+        email: 'alice@example.com',
+        contactNumber: '12345678',
+      };
 
-    const res = await request(app).get('/teachers');
+      (Teacher.findOne as any).mockResolvedValue(mockTeacher);
 
-    expect(res.status).toBe(500);
-    expect(res.body).toEqual({ error: 'Database unavailable' });
-  });
+      const result =
+        await TeacherService.findTeacherByEmail('alice@example.com');
 
-  it('POST /teachers creates a teacher', async () => {
-    const newTeacher = { id: 1, ...mockedTeachers[0] };
-    (TeacherService.createTeacher as any).mockResolvedValue(newTeacher);
-
-    const res = await request(app).post('/teachers').send({
-      name: 'Alice',
-      subject: 'Math',
-      email: 'alice@example.com',
-      contactNumber: '12345678',
+      expect(Teacher.findOne).toHaveBeenCalledWith({
+        where: { email: 'alice@example.com' },
+      });
+      expect(result).toEqual(mockTeacher);
     });
 
-    expect(res.status).toBe(201);
-  });
+    it('should throw AppError when teacher not found', async () => {
+      (Teacher.findOne as any).mockResolvedValue(null);
 
-  it('POST /teachers returns error when service throws', async () => {
-    (TeacherService.createTeacher as any).mockRejectedValue(
-      new Error('Something went wrong'),
-    );
+      await expect(
+        TeacherService.findTeacherByEmail('nonexistent@example.com'),
+      ).rejects.toThrow(AppError);
 
-    const res = await request(app).post('/teachers').send({
-      name: 'Alice',
-      subject: 'Math',
-      email: 'alice@example.com',
-      contactNumber: '12345678',
+      await expect(
+        TeacherService.findTeacherByEmail('nonexistent@example.com'),
+      ).rejects.toThrow(
+        'Teacher with email nonexistent@example.com not found!',
+      );
     });
-
-    expect(res.status).toBe(500);
-    expect(res.body).toEqual({ error: 'Something went wrong' });
   });
 });

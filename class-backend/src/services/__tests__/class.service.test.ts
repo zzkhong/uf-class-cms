@@ -51,6 +51,14 @@ describe('ClassService', () => {
 
       expect(result).toEqual(mockClasses);
     });
+
+    it('should return empty array when no classes exist', async () => {
+      (Class.findAll as any).mockResolvedValue([]);
+
+      const result = await ClassService.getAllClasses();
+
+      expect(result).toEqual([]);
+    });
   });
 
   describe('createClass', () => {
@@ -63,7 +71,12 @@ describe('ClassService', () => {
       };
 
       (TeacherService.findTeacherByEmail as any).mockResolvedValue(mockTeacher);
-      const mockNewClass = { id: 10, ...dto, teacherId: mockTeacher.id };
+      const mockNewClass = {
+        id: 10,
+        name: dto.name,
+        level: dto.level,
+        teacherId: mockTeacher.id,
+      };
       (Class.create as any).mockResolvedValue(mockNewClass);
 
       const result = await ClassService.createClass(dto);
@@ -94,6 +107,35 @@ describe('ClassService', () => {
       await expect(ClassService.createClass(dto)).rejects.toThrow(
         'Teacher not found',
       );
+
+      expect(Class.create).not.toHaveBeenCalled();
+    });
+
+    it('should throw if class creation fails', async () => {
+      const mockTeacher = { id: 1, name: 'Mary', email: 'mary@test.com' };
+      const dto: CreateClassDTO = {
+        name: 'Class 1A',
+        level: 'Primary 1',
+        teacherEmail: 'mary@test.com',
+      };
+
+      (TeacherService.findTeacherByEmail as any).mockResolvedValue(mockTeacher);
+      (Class.create as any).mockRejectedValue(
+        new Error('Unique constraint violation'),
+      );
+
+      await expect(ClassService.createClass(dto)).rejects.toThrow(
+        'Unique constraint violation',
+      );
+
+      expect(TeacherService.findTeacherByEmail).toHaveBeenCalledWith(
+        dto.teacherEmail,
+      );
+      expect(Class.create).toHaveBeenCalledWith({
+        name: dto.name,
+        level: dto.level,
+        teacherId: mockTeacher.id,
+      });
     });
   });
 });
