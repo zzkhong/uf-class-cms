@@ -9,6 +9,8 @@ import { useRouter } from 'next/navigation';
 import AppLayout from '@/components/layout/app';
 import { CLASS_LEVEL_OPTIONS } from '@/constants/options.constant';
 import { useApiQuery } from '@/hooks/useApiQuery';
+import { useSafeRequest } from '@/hooks/useSafeRequest';
+import { ICreateClassRequest } from '@/interfaces/class.interface';
 import { IGetTeacherListResponse } from '@/interfaces/teacher.interface';
 import { validateAlphaSymbolField } from '@/utils/validation';
 
@@ -22,15 +24,22 @@ export default function CreateClassPage() {
   const router = useRouter();
   const { data: teacherData } =
     useApiQuery<IGetTeacherListResponse>('/teachers');
+  const { request, isPending } = useSafeRequest<ICreateClassRequest, null>();
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (
-    errorInfo,
-  ) => {
-    console.log('Failed:', errorInfo);
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    await request(
+      {
+        method: 'POST',
+        url: '/classes',
+        data: values,
+      },
+      {
+        onSuccess: () => {
+          router.back();
+        },
+        onError: () => {},
+      },
+    );
   };
 
   return (
@@ -39,7 +48,7 @@ export default function CreateClassPage() {
         <h2 className="font-extrabold text-2xl">Add Class</h2>
       </Flex>
 
-      <Form name="name" onFinish={onFinish} onFinishFailed={onFinishFailed}>
+      <Form name="name" onFinish={onFinish}>
         <Card variant="borderless" className="mb-4">
           <div className="max-w-[480px]">
             <Form.Item<FieldType>
@@ -103,13 +112,17 @@ export default function CreateClassPage() {
 
         <Flex gap="small" justify="flex-end">
           <Form.Item>
-            <Button icon={<ArrowLeftOutlined />} onClick={() => router.back()}>
+            <Button
+              icon={<ArrowLeftOutlined />}
+              onClick={() => router.back()}
+              disabled={isPending}
+            >
               Back
             </Button>
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" disabled={isPending}>
               Add Class
             </Button>
           </Form.Item>

@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 
 import AppLayout from '@/components/layout/app';
 import { MAIN_SUBJECT_OPTIONS } from '@/constants/options.constant';
+import { useSafeRequest } from '@/hooks/useSafeRequest';
+import { ICreateTeacherRequest } from '@/interfaces/teacher.interface';
 import { validateAlphaSymbolField } from '@/utils/validation';
 
 type FieldType = {
@@ -18,15 +20,22 @@ type FieldType = {
 
 export default function CreateTeacherPage() {
   const router = useRouter();
+  const { request, isPending } = useSafeRequest<ICreateTeacherRequest, null>();
 
-  const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
-    console.log('Success:', values);
-  };
-
-  const onFinishFailed: FormProps<FieldType>['onFinishFailed'] = (
-    errorInfo,
-  ) => {
-    console.log('Failed:', errorInfo);
+  const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
+    await request(
+      {
+        method: 'POST',
+        url: '/teachers',
+        data: values,
+      },
+      {
+        onSuccess: () => {
+          router.back();
+        },
+        onError: () => {},
+      },
+    );
   };
 
   return (
@@ -35,12 +44,7 @@ export default function CreateTeacherPage() {
         <h2 className="font-extrabold text-2xl">Add Teacher</h2>
       </Flex>
 
-      <Form
-        name="name"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
+      <Form name="name" onFinish={onFinish} autoComplete="false">
         <Card variant="borderless" className="mb-4">
           <div className="max-w-[480px]">
             <Form.Item<FieldType>
@@ -98,13 +102,17 @@ export default function CreateTeacherPage() {
 
         <Flex gap="small" justify="flex-end">
           <Form.Item>
-            <Button icon={<ArrowLeftOutlined />} onClick={() => router.back()}>
+            <Button
+              icon={<ArrowLeftOutlined />}
+              onClick={() => router.back()}
+              disabled={isPending}
+            >
               Back
             </Button>
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" disabled={isPending}>
               Add Teacher
             </Button>
           </Form.Item>
