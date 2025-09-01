@@ -7,7 +7,7 @@ export const createClassSchema = z.object({
     .string()
     .trim()
     .min(1, 'Name cannot be empty')
-    .max(64, 'Name too long')
+    .max(128, 'Name too long')
     .regex(
       RegexPatterns.ALPHANUMERIC_SYMBOL,
       'Name can only contain letters, numbers, spaces, apostrophes, and hyphens',
@@ -16,7 +16,7 @@ export const createClassSchema = z.object({
     .string()
     .trim()
     .min(1, 'Level cannot be empty')
-    .max(128, 'Level too long')
+    .max(64, 'Level too long')
     .regex(
       RegexPatterns.ALPHANUMERIC_SYMBOL,
       'Level can only contain letters, numbers, spaces, apostrophes, and hyphens',
