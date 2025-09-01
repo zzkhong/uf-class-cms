@@ -1,7 +1,10 @@
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import '@ant-design/v5-patch-for-react-19';
 import type { Metadata } from 'next';
+import { PublicEnvScript } from 'next-runtime-env';
 import { Inter } from 'next/font/google';
+
+import AppLayout from '@/components/layout/app';
 
 import './globals.css';
 
@@ -19,8 +22,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <PublicEnvScript />
+      </head>
       <body className={`${inter.className} antialiased`}>
-        <AntdRegistry>{children}</AntdRegistry>
+        <AppLayout>
+          <AntdRegistry>{children}</AntdRegistry>
+        </AppLayout>
       </body>
     </html>
   );

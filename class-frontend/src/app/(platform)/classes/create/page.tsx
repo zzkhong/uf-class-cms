@@ -5,16 +5,15 @@ import type { FormProps } from 'antd';
 import { Button, Card, Flex, Form, Input } from 'antd';
 import { useRouter } from 'next/navigation';
 
-import AppLayout from '@/components/AppLayout';
+import AppLayout from '@/components/layout/app';
 
 type FieldType = {
+  level: string;
   name: string;
-  subject: string;
-  email: string;
-  contactNumber: string;
+  teacherEmail: string;
 };
 
-export default function CreateTeacherPage() {
+export default function CreateClassPage() {
   const router = useRouter();
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
@@ -30,19 +29,25 @@ export default function CreateTeacherPage() {
   return (
     <AppLayout>
       <Flex justify="space-between" align="center" className="mb-4">
-        <h2 className="font-extrabold text-2xl">Add Teacher</h2>
+        <h2 className="font-extrabold text-2xl">Add Class</h2>
       </Flex>
 
-      <Form
-        name="name"
-        onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
-        autoComplete="off"
-      >
+      <Form name="name" onFinish={onFinish} onFinishFailed={onFinishFailed}>
         <Card variant="borderless" className="mb-4">
           <div className="max-w-[480px]">
             <Form.Item<FieldType>
-              label="Name"
+              label="Class Level"
+              name="level"
+              layout="vertical"
+              rules={[
+                { required: true, message: 'Please input your username!' },
+              ]}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item<FieldType>
+              label="Class Name"
               name="name"
               layout="vertical"
               rules={[
@@ -53,30 +58,8 @@ export default function CreateTeacherPage() {
             </Form.Item>
 
             <Form.Item<FieldType>
-              label="Subject"
-              name="subject"
-              layout="vertical"
-              rules={[
-                { required: true, message: 'Please input your username!' },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item<FieldType>
-              label="Email Address"
-              name="email"
-              layout="vertical"
-              rules={[
-                { required: true, message: 'Please input your username!' },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item<FieldType>
-              label="Work Contact Number"
-              name="contactNumber"
+              label="Form Teacher"
+              name="teacherEmail"
               layout="vertical"
               rules={[
                 { required: true, message: 'Please input your username!' },
@@ -100,7 +83,7 @@ export default function CreateTeacherPage() {
 
           <Form.Item>
             <Button type="primary" htmlType="submit" size="large">
-              Add Teacher
+              Add Class
             </Button>
           </Form.Item>
         </Flex>

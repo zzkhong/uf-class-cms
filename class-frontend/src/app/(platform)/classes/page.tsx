@@ -5,27 +5,25 @@ import { Button, Card, Flex, Table } from 'antd';
 import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 
-import AppLayout from '@/components/AppLayout';
-
-export default function TeachersPage() {
+export default function ClassesPage() {
   const router = useRouter();
 
-  const handleAddTeacher = useCallback(() => {
-    router.push('/teachers/create');
+  const handleAddClass = useCallback(() => {
+    router.push('/classes/create');
   }, [router]);
 
   return (
-    <AppLayout>
+    <>
       <Flex justify="space-between" align="center" className="mb-4">
-        <h2 className="font-extrabold text-2xl">Teachers</h2>
+        <h2 className="font-extrabold text-2xl">Classes</h2>
 
         <Button
           type="primary"
           icon={<PlusOutlined />}
           size="large"
-          onClick={handleAddTeacher}
+          onClick={handleAddClass}
         >
-          Add Teacher
+          Add Class
         </Button>
       </Flex>
 
@@ -64,6 +62,6 @@ export default function TeachersPage() {
           ]}
         />
       </Card>
-    </AppLayout>
+    </>
   );
 }
