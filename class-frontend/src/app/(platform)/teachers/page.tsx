@@ -36,6 +36,7 @@ export default function TeachersPage() {
       <Card variant="borderless">
         {teacherData?.data.length || isLoading ? (
           <Table
+            rowKey={(record) => record.email}
             loading={isLoading}
             dataSource={teacherData?.data}
             columns={columns}

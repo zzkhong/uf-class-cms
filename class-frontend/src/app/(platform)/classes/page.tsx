@@ -36,6 +36,7 @@ export default function ClassesPage() {
       <Card variant="borderless">
         {classesData?.data.length || isLoading ? (
           <Table
+            rowKey={(record) => record.name}
             loading={isLoading}
             dataSource={classesData?.data}
             columns={columns}

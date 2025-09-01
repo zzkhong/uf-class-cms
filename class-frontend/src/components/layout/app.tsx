@@ -1,6 +1,7 @@
 'use client';
 
 import { StyleProvider } from '@ant-design/cssinjs';
+import '@ant-design/v5-patch-for-react-19';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ConfigProvider } from 'antd';
 
