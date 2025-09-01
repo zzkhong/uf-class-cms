@@ -40,6 +40,7 @@ export default function ClassesPage() {
             loading={isLoading}
             dataSource={classesData?.data}
             columns={columns}
+            pagination={{ position: ['none'] }}
           />
         ) : (
           <div className="w-full min-h-80 flex flex-col items-center justify-center">
