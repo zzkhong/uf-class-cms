@@ -2,7 +2,7 @@
 
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import type { FormProps } from 'antd';
-import { Button, Card, Flex, Form, Input, Select } from 'antd';
+import { App, Button, Card, Flex, Form, Input, Select } from 'antd';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -25,6 +25,7 @@ export default function CreateClassPage() {
   const { data: teacherData } =
     useApiQuery<IGetTeacherListResponse>('/teachers');
   const { request, isPending } = useSafeRequest<ICreateClassRequest, null>();
+  const { message } = App.useApp();
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     await request(
@@ -35,9 +36,12 @@ export default function CreateClassPage() {
       },
       {
         onSuccess: () => {
+          message.success('Successfully created new teacher');
           router.back();
         },
-        onError: () => {},
+        onError: () => {
+          message.error('Something went wrong, please try again!');
+        },
       },
     );
   };

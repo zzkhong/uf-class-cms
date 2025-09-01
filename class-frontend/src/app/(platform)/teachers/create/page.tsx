@@ -2,7 +2,7 @@
 
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import type { FormProps } from 'antd';
-import { Button, Card, Flex, Form, Input, Select } from 'antd';
+import { App, Button, Card, Flex, Form, Input, Select } from 'antd';
 import { useRouter } from 'next/navigation';
 
 import AppLayout from '@/components/layout/app';
@@ -21,6 +21,7 @@ type FieldType = {
 export default function CreateTeacherPage() {
   const router = useRouter();
   const { request, isPending } = useSafeRequest<ICreateTeacherRequest, null>();
+  const { message } = App.useApp();
 
   const onFinish: FormProps<FieldType>['onFinish'] = async (values) => {
     await request(
@@ -31,9 +32,12 @@ export default function CreateTeacherPage() {
       },
       {
         onSuccess: () => {
+          message.success('Successfully created new teacher');
           router.back();
         },
-        onError: () => {},
+        onError: () => {
+          message.error('Something went wrong, please try again!');
+        },
       },
     );
   };
