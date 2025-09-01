@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 
 import AppLayout from '@/components/layout/app';
 import { CLASS_LEVEL_OPTIONS } from '@/constants/options.constant';
+import { useApiQuery } from '@/hooks/useApiQuery';
+import { IGetTeacherListResponse } from '@/interfaces/teacher.interface';
 
 type FieldType = {
   level: string;
@@ -16,6 +18,8 @@ type FieldType = {
 
 export default function CreateClassPage() {
   const router = useRouter();
+  const { data: teacherData } =
+    useApiQuery<IGetTeacherListResponse>('/teachers');
 
   const onFinish: FormProps<FieldType>['onFinish'] = (values) => {
     console.log('Success:', values);
@@ -72,7 +76,13 @@ export default function CreateClassPage() {
                 { required: true, message: 'Please input your username!' },
               ]}
             >
-              <Select placeholder="Assign a form teacher" />
+              <Select
+                placeholder="Assign a form teacher"
+                options={teacherData?.data.map((opt) => ({
+                  label: opt.name,
+                  value: opt.email,
+                }))}
+              />
             </Form.Item>
           </div>
         </Card>
