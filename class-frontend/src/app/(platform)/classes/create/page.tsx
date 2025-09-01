@@ -3,6 +3,7 @@
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import type { FormProps } from 'antd';
 import { Button, Card, Flex, Form, Input, Select } from 'antd';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 import AppLayout from '@/components/layout/app';
@@ -77,6 +78,16 @@ export default function CreateClassPage() {
               ]}
             >
               <Select
+                popupRender={(menu) =>
+                  teacherData?.data.length ? (
+                    menu
+                  ) : (
+                    <div className="p-2">
+                      <p>No existing teachers.</p>
+                      <Link href="/teachers/create">Add a teacher</Link>
+                    </div>
+                  )
+                }
                 placeholder="Assign a form teacher"
                 options={teacherData?.data.map((opt) => ({
                   label: opt.name,
