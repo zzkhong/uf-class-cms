@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 
 import AppLayout from '@/components/layout/app';
 import { MAIN_SUBJECT_OPTIONS } from '@/constants/options.constant';
+import { validateAlphaSymbolField } from '@/utils/validation';
 
 type FieldType = {
   name: string;
@@ -46,9 +47,7 @@ export default function CreateTeacherPage() {
               label="Name"
               name="name"
               layout="vertical"
-              rules={[
-                { required: true, message: 'Please input your username!' },
-              ]}
+              rules={[{ validator: validateAlphaSymbolField('Name', 64) }]}
             >
               <Input placeholder="Name" />
             </Form.Item>
@@ -57,9 +56,7 @@ export default function CreateTeacherPage() {
               label="Subject"
               name="subject"
               layout="vertical"
-              rules={[
-                { required: true, message: 'Please input your username!' },
-              ]}
+              rules={[{ required: true, message: 'Please select a subject.' }]}
             >
               <Select
                 placeholder="Select a subject"
@@ -75,7 +72,8 @@ export default function CreateTeacherPage() {
               name="email"
               layout="vertical"
               rules={[
-                { required: true, message: 'Please input your username!' },
+                { required: true, message: 'Please input email.' },
+                { type: 'email', message: 'This email address is invalid.' },
               ]}
             >
               <Input placeholder="Email Address" />
@@ -86,7 +84,11 @@ export default function CreateTeacherPage() {
               name="contactNumber"
               layout="vertical"
               rules={[
-                { required: true, message: 'Please input your username!' },
+                { required: true, message: 'Please input contact number.' },
+                {
+                  pattern: /^[0-9]{8}$/,
+                  message: 'This work contact number is invalid.',
+                },
               ]}
             >
               <Input placeholder="Work Contact Number" />

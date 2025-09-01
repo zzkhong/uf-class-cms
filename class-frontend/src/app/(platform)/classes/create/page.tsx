@@ -10,6 +10,7 @@ import AppLayout from '@/components/layout/app';
 import { CLASS_LEVEL_OPTIONS } from '@/constants/options.constant';
 import { useApiQuery } from '@/hooks/useApiQuery';
 import { IGetTeacherListResponse } from '@/interfaces/teacher.interface';
+import { validateAlphaSymbolField } from '@/utils/validation';
 
 type FieldType = {
   level: string;
@@ -46,7 +47,7 @@ export default function CreateClassPage() {
               name="level"
               layout="vertical"
               rules={[
-                { required: true, message: 'Please input your username!' },
+                { required: true, message: 'Please select a class level.' },
               ]}
             >
               <Select
@@ -63,7 +64,9 @@ export default function CreateClassPage() {
               name="name"
               layout="vertical"
               rules={[
-                { required: true, message: 'Please input your username!' },
+                {
+                  validator: validateAlphaSymbolField('Class name', 64),
+                },
               ]}
             >
               <Input placeholder="Class Name" />
@@ -74,7 +77,7 @@ export default function CreateClassPage() {
               name="teacherEmail"
               layout="vertical"
               rules={[
-                { required: true, message: 'Please input your username!' },
+                { required: true, message: 'Please select a form teacher.' },
               ]}
             >
               <Select
