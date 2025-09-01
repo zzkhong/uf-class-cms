@@ -7,7 +7,7 @@ import {
 } from '@tanstack/react-query';
 import axios from 'axios';
 
-import { NEXT_PUBLIC_API_HOST } from '@/utils/env';
+import { NEXT_PUBLIC_API_HOST } from '@/constants/env.constant';
 
 const instance = axios.create();
 

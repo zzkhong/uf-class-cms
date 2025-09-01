@@ -2,10 +2,11 @@
 
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import type { FormProps } from 'antd';
-import { Button, Card, Flex, Form, Input } from 'antd';
+import { Button, Card, Flex, Form, Input, Select } from 'antd';
 import { useRouter } from 'next/navigation';
 
 import AppLayout from '@/components/layout/app';
+import { MAIN_SUBJECT_OPTIONS } from '@/constants/options.constant';
 
 type FieldType = {
   name: string;
@@ -49,7 +50,7 @@ export default function CreateTeacherPage() {
                 { required: true, message: 'Please input your username!' },
               ]}
             >
-              <Input />
+              <Input placeholder="Name" />
             </Form.Item>
 
             <Form.Item<FieldType>
@@ -60,7 +61,13 @@ export default function CreateTeacherPage() {
                 { required: true, message: 'Please input your username!' },
               ]}
             >
-              <Input />
+              <Select
+                placeholder="Select a subject"
+                options={MAIN_SUBJECT_OPTIONS.map((opt) => ({
+                  label: opt,
+                  value: opt,
+                }))}
+              />
             </Form.Item>
 
             <Form.Item<FieldType>
@@ -71,7 +78,7 @@ export default function CreateTeacherPage() {
                 { required: true, message: 'Please input your username!' },
               ]}
             >
-              <Input />
+              <Input placeholder="Email Address" />
             </Form.Item>
 
             <Form.Item<FieldType>
@@ -82,7 +89,7 @@ export default function CreateTeacherPage() {
                 { required: true, message: 'Please input your username!' },
               ]}
             >
-              <Input />
+              <Input placeholder="Work Contact Number" />
             </Form.Item>
           </div>
         </Card>

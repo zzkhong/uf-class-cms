@@ -2,10 +2,11 @@
 
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import type { FormProps } from 'antd';
-import { Button, Card, Flex, Form, Input } from 'antd';
+import { Button, Card, Flex, Form, Input, Select } from 'antd';
 import { useRouter } from 'next/navigation';
 
 import AppLayout from '@/components/layout/app';
+import { CLASS_LEVEL_OPTIONS } from '@/constants/options.constant';
 
 type FieldType = {
   level: string;
@@ -43,7 +44,13 @@ export default function CreateClassPage() {
                 { required: true, message: 'Please input your username!' },
               ]}
             >
-              <Input />
+              <Select
+                placeholder="Select a level"
+                options={CLASS_LEVEL_OPTIONS.map((opt) => ({
+                  label: opt,
+                  value: opt,
+                }))}
+              />
             </Form.Item>
 
             <Form.Item<FieldType>
@@ -54,7 +61,7 @@ export default function CreateClassPage() {
                 { required: true, message: 'Please input your username!' },
               ]}
             >
-              <Input />
+              <Input placeholder="Class Name" />
             </Form.Item>
 
             <Form.Item<FieldType>
@@ -65,7 +72,7 @@ export default function CreateClassPage() {
                 { required: true, message: 'Please input your username!' },
               ]}
             >
-              <Input />
+              <Select placeholder="Assign a form teacher" />
             </Form.Item>
           </div>
         </Card>
