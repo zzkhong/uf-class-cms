@@ -1,7 +1,17 @@
-export interface ICreateClassRequest {}
+export interface ICreateClassRequest {
+  level: string;
+  name: string;
+  teacherEmail: string;
+}
 
-export interface ICreateClassResponse {}
+export interface IGetClassListResponse {
+  data: IClass[];
+}
 
-export interface IGetClassListResponse {}
-
-export interface IClass {}
+export interface IClass {
+  level: string;
+  name: string;
+  formTeacher: {
+    name: string;
+  };
+}

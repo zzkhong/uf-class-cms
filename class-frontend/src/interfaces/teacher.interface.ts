@@ -1,7 +1,17 @@
-export interface ICreateTeacherRequest {}
+export interface ICreateTeacherRequest {
+  name: string;
+  subject: string;
+  email: string;
+  contactNumber: string;
+}
 
-export interface ICreateTeacherResponse {}
+export interface IGetTeacherListResponse {
+  data: ITeacher[];
+}
 
-export interface IGetTeacherListResponse {}
-
-export interface ITeacher {}
+export interface ITeacher {
+  name: string;
+  subject: string;
+  email: string;
+  contactNumber: string;
+}
