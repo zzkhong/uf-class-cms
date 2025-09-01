@@ -8,4 +8,12 @@ export const sequelize = new Sequelize({
   ...dbConfig,
   dialect: 'postgres',
   logging: env === 'development' ? console.log : false,
+  dialectOptions: env !== 'development'
+    ? {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
+      }
+    : {},
 });
