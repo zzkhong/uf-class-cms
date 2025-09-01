@@ -25,11 +25,9 @@ export const createTeacherSchema = z.object({
   contactNumber: z
     .string()
     .trim()
-    .min(8, 'Contact number too short')
-    .max(32, 'Contact number too long')
     .regex(
       RegexPatterns.CONTACT_NUMBER,
-      'Contact number contains invalid characters',
+      'Contact number must contain only 8 digits',
     ),
 });
 

@@ -38,15 +38,31 @@ describe('createTeacherSchema', () => {
     expect(result.error?.issues[0].message).toBe('Invalid email address');
   });
 
-  it('should fail if contactNumber is too short', () => {
+  it('should fail if contactNumber is too long', () => {
     const data = {
       name: 'John Doe',
       subject: 'Math',
       email: 'john@example.com',
-      contactNumber: '123',
+      contactNumber: '123456789',
     };
     const result = createTeacherSchema.safeParse(data);
     expect(result.success).toBe(false);
-    expect(result.error?.issues[0].message).toBe('Contact number too short');
+    expect(result.error?.issues[0].message).toBe(
+      'Contact number must contain only 8 digits',
+    );
+  });
+
+  it('should fail if contactNumber contains non-digits', () => {
+    const data = {
+      name: 'John Doe',
+      subject: 'Math',
+      email: 'john@example.com',
+      contactNumber: '1234-5678',
+    };
+    const result = createTeacherSchema.safeParse(data);
+    expect(result.success).toBe(false);
+    expect(result.error?.issues[0].message).toBe(
+      'Contact number must contain only 8 digits',
+    );
   });
 });
