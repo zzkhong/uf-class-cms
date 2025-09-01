@@ -87,11 +87,12 @@ describe('ClassController', () => {
         teacherEmail: 'mary@test.com',
       });
       expect(res.status).toBe(201);
+      expect(res.body).toEqual('');
     });
 
     it('should call next with error if creation fails', async () => {
       (ClassService.createClass as any).mockRejectedValue(
-        new Error('Teacher with email mary@test.com not found!'),
+        new Error('Teacher not found!'),
       );
 
       const res = await request(app).post('/classes').send({
@@ -102,7 +103,7 @@ describe('ClassController', () => {
 
       expect(res.status).toBe(500);
       expect(res.body).toEqual({
-        error: 'Teacher with email mary@test.com not found!',
+        error: 'Teacher not found!',
       });
     });
   });

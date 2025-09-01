@@ -90,6 +90,7 @@ describe('TeacherController', () => {
         contactNumber: '1234',
       });
       expect(res.status).toBe(201);
+      expect(res.body).toEqual('');
     });
 
     it('should call next with error if creation fails', async () => {
