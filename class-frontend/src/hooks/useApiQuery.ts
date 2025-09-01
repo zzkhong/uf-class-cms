@@ -13,7 +13,7 @@ const instance = axios.create();
 
 function useApiQuery<T>(
   url: string,
-  params?: Record<string, any>,
+  params?: Record<string, unknown>,
   queryParams?: Omit<
     UseQueryOptions<Promise<T>, DefaultError, T, QueryKey>,
     'queryKey'
