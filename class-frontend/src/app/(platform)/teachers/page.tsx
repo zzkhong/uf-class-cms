@@ -20,12 +20,7 @@ export default function TeachersPage() {
   }, [router]);
 
   const AddTeacherButton = () => (
-    <Button
-      type="primary"
-      icon={<PlusOutlined />}
-      size="large"
-      onClick={handleAddTeacher}
-    >
+    <Button type="primary" icon={<PlusOutlined />} onClick={handleAddTeacher}>
       Add Teacher
     </Button>
   );

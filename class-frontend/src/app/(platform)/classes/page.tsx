@@ -20,12 +20,7 @@ export default function ClassesPage() {
   }, [router]);
 
   const AddClassButton = () => (
-    <Button
-      type="primary"
-      icon={<PlusOutlined />}
-      size="large"
-      onClick={handleAddClass}
-    >
+    <Button type="primary" icon={<PlusOutlined />} onClick={handleAddClass}>
       Add Class
     </Button>
   );

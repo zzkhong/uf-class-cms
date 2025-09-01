@@ -96,17 +96,13 @@ export default function CreateTeacherPage() {
 
         <Flex gap="small" justify="flex-end">
           <Form.Item>
-            <Button
-              icon={<ArrowLeftOutlined />}
-              size="large"
-              onClick={() => router.back()}
-            >
+            <Button icon={<ArrowLeftOutlined />} onClick={() => router.back()}>
               Back
             </Button>
           </Form.Item>
 
           <Form.Item>
-            <Button type="primary" htmlType="submit" size="large">
+            <Button type="primary" htmlType="submit">
               Add Teacher
             </Button>
           </Form.Item>
