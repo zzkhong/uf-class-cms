@@ -5,7 +5,7 @@ A system for a private education business to perform administrative functions, w
 ## Live Demo
 
 - [https://uf-class-cms-fe.onrender.com](https://uf-class-cms-fe.onrender.com)
-- Render free instance has cold start - might wait up to 1min :)
+- Render free instance has cold start - might wait up to 3 ~ 5 min :)
 
 ## Project Structure
 
