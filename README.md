@@ -121,15 +121,15 @@ A Postman collection is included for testing the API endpoints:
 
 - `id` (Primary Key)
 - `name` (Required)
+- `subject` (Required, from predefined options)
 - `email` (Required, Unique)
-- `phone` (Optional)
+- `contactNumber` (Optional)
 - `createdAt`, `updatedAt` (Timestamps)
 
 ### Classes Table
 
 - `id` (Primary Key)
 - `name` (Required)
-- `subject` (Required, from predefined options)
 - `level` (Required, from predefined options)
 - `teacherId` (Foreign Key to Teachers)
 - `createdAt`, `updatedAt` (Timestamps)
